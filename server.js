@@ -99,4 +99,52 @@ server.post('/api/tasks', (req, res) => {
   });
 });
 
+server.delete('/api/projects/:id', (req, res) => {
+    db('projects')
+      .where({ id: req.params.id })
+      .del()
+    .then(count => {
+      if (count > 0) {
+        res.status(204).end();
+      } else {
+        res.status(404).json({ message: 'project not found' });
+      }
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+  });
+
+  server.delete('/api/resources/:id', (req, res) => {
+    db('resources')
+      .where({ id: req.params.id })
+      .del()
+    .then(count => {
+      if (count > 0) {
+        res.status(204).end();
+      } else {
+        res.status(404).json({ message: 'resource not found' });
+      }
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+  });
+
+  server.delete('/api/tasks/:id', (req, res) => {
+    db('tasks')
+      .where({ id: req.params.id })
+      .del()
+    .then(count => {
+      if (count > 0) {
+        res.status(204).end();
+      } else {
+        res.status(404).json({ message: 'task not found' });
+      }
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+  });
+
 module.exports = server;
